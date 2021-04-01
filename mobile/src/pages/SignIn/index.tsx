@@ -7,7 +7,12 @@ import Input from '../../components/Input';
 import LoginImage from '../../assets/images/login_image.svg';
 import { useState } from 'react';
 
+import {useNavigation} from '@react-navigation/native';
+
 const SignIn = () => {
+
+  const navigation = useNavigation();
+
   const [email, setEmail] = useState(String);
   const [password, setPassword] = useState(String);
 
@@ -40,7 +45,7 @@ const SignIn = () => {
       </LinearGradient>
 
       <View style={styles.buttonsContainer}>
-        <TouchableWithoutFeedback>
+        <TouchableWithoutFeedback onPress={() => { navigation.navigate('SignUp'); } }>
           <Text style={styles.textButton}>Cadastre-se</Text>
         </TouchableWithoutFeedback>
         
