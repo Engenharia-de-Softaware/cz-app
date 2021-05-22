@@ -14,24 +14,41 @@ import {useNavigation} from '@react-navigation/native';
 import Entypo from 'react-native-vector-icons/Entypo';
 import Evilcons from 'react-native-vector-icons/EvilIcons';
 
-const initialRegion = {
-  latitude: -27.2092052,
-  longitude: -49.6401092,
-  latitudeDelta: 0.008,
-  longitudeDelta: 0.008,
-};
+import GetLocation from 'react-native-get-location';
+import {async} from 'q';
 
 const Dashboard = () => {
   const navigation = useNavigation();
   const [visible, setVisible] = useState(false);
+  const [latitude, setLatitude] = useState(Number);
+  const [longitude, setLongitude] = useState(Number);
+
+  useEffect(() => {
+    const getLocation = () => {
+      GetLocation.getCurrentPosition({
+        enableHighAccuracy: true,
+        timeout: 15000,
+      })
+        .then(location => {
+          console.warn(location);
+          setLatitude(location.latitude);
+          setLongitude(location.longitude);
+        })
+        .catch(error => {
+          const {code, message} = error;
+          console.warn(code, message);
+        });
+    };
+    getLocation();
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
       <MapView
         provider={PROVIDER_GOOGLE}
         region={{
-          latitude: -7.172038,
-          longitude: -34.8347068,
+          latitude,
+          longitude,
           latitudeDelta: 0.1,
           longitudeDelta: 0.1,
         }}

@@ -22,6 +22,8 @@ target 'mobile' do
 
   pod 'react-native-camera', :path => '../node_modules/react-native-camera'
 
+  pod 'ReactNativeGetLocation', :path => '../node_modules/react-native-get-location'
+
   target 'mobileTests' do
     inherit! :complete
     # Pods for testing
