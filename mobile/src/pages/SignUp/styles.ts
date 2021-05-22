@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     marginTop: 38,
   },
 
-  buttonRegister: {
+  buttonRegisterContainer: {
     marginTop: 30,
     marginLeft: Dimensions.get('window').width*0.1,
     width: Dimensions.get('window').width*0.8,
