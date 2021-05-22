@@ -1,10 +1,11 @@
 import React from 'react';
 import styles from './styles';
 import { useState } from 'react';
-import { View, Text, SafeAreaView, TouchableWithoutFeedback, TextInput, TouchableOpacity} from 'react-native';
+import { View, Text, SafeAreaView, TouchableWithoutFeedback, TextInput, TouchableOpacity, Alert} from 'react-native';
 import SignUpImage from '../../assets/images/logo.svg';
 import Entypo from 'react-native-vector-icons/Entypo';
 import {useNavigation} from '@react-navigation/native';
+import { color } from 'react-native-reanimated';
 
 const SignUp = () =>{
 
@@ -18,6 +19,32 @@ const SignUp = () =>{
 
   const [eyeState1, setEyeState1] = useState(true);
   const [eyeState2, setEyeState2] = useState(true);
+
+  const checkTextInput = () => {
+    //Check for the Name TextInput
+    if (!name.trim()) {
+      //alert('Please Enter Name');
+      return;
+    }
+    //Check for the Email TextInput
+    if (!email.trim()) {
+      
+      return;
+    }
+
+    if(!password.trim() || !password2.trim()){
+
+      return;
+    }
+    
+    if(!cpf.trim()){
+      return;
+    }
+    //Checked Successfully
+    //Do whatever you want
+    //alert('Success');
+  };
+
 
   return(
     <SafeAreaView style={styles.background}>
@@ -93,11 +120,11 @@ const SignUp = () =>{
 
       </View>
 
-      <TouchableWithoutFeedback>
-        <View style={styles.buttonRegister}>
+      <TouchableOpacity onPress={checkTextInput}>
+        <View style={styles.buttonRegisterContainer}>
           <Text style={{color: '#fff'}}>Cadastrar</Text>
         </View>
-      </TouchableWithoutFeedback>
+      </TouchableOpacity>
 
 
     </SafeAreaView>
