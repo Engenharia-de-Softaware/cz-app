@@ -3,18 +3,17 @@ import { Dimensions, StyleSheet } from 'react-native';
 
 
 const styles = StyleSheet.create({
-
-  background:{
+  background: {
     flex: 1,
     height: Dimensions.get('window').height,
     backgroundColor: '#fff',
   },
 
-  singupImage:{
+  singupImage: {
     marginLeft: -156,
     marginTop: 160,
     alignContent: 'center',
-    position: 'absolute'
+    position: 'absolute',
   },
 
   titleContainer: {
@@ -22,7 +21,7 @@ const styles = StyleSheet.create({
     marginBottom: 50,
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
 
   textTitle: {
@@ -35,18 +34,18 @@ const styles = StyleSheet.create({
     fontFamily: 'Roboto',
     fontWeight: 'bold',
     fontSize: 25,
-    textAlign: 'center'
+    textAlign: 'center',
   },
 
-  singUpInputContainer: { 
+  singUpInputContainer: {
     alignItems: 'center',
     marginTop: 38,
   },
 
   buttonRegisterContainer: {
     marginTop: 30,
-    marginLeft: Dimensions.get('window').width*0.1,
-    width: Dimensions.get('window').width*0.8,
+    marginLeft: Dimensions.get('window').width * 0.1,
+    width: Dimensions.get('window').width * 0.8,
     height: 40,
     backgroundColor: '#282C37',
     borderRadius: 25,
@@ -56,9 +55,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 
-  buttonBackContainer:{
+  buttonBackContainer: {
     marginTop: 25,
-    marginLeft: Dimensions.get('window').width*0.05,
+    marginLeft: Dimensions.get('window').width * 0.05,
     width: 40,
     height: 40,
     backgroundColor: '#DB3828',
@@ -70,13 +69,13 @@ const styles = StyleSheet.create({
     position: 'absolute',
   },
 
-  buttonBack:{
+  buttonBack: {
     fontSize: 25,
     paddingBottom: 2,
     color: '#fff',
   },
 
-  inputContainer:{
+  inputContainer: {
     width: Dimensions.get('window').width * 0.8,
     height: 40,
     backgroundColor: '#fff',
@@ -90,7 +89,7 @@ const styles = StyleSheet.create({
     borderStyle: 'solid',
     borderColor: '#DB3828',
     borderWidth: 1,
-    
+
     justifyContent: 'space-between',
     paddingLeft: 10,
     paddingRight: 10,
@@ -101,10 +100,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     position: 'absolute',
-    marginLeft: 273,
-    marginTop:24,
+    marginLeft: Dimensions.get('window').width * 0.7,
+    marginTop: 24,
   },
-
 });
 
 export default styles;
