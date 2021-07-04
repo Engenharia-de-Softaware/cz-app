@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
 
     display: 'flex',
     flexDirection: 'row',
-    
+
     justifyContent: 'space-between',
     paddingLeft: 10,
     paddingRight: 10,
@@ -20,18 +20,19 @@ const styles = StyleSheet.create({
 
   inputStyle: {
     width: '100%',
+    fontFamily: 'Roboto',
   },
 
   inputStylePassword: {
     width: '80%',
+    fontFamily: 'Roboto',
   },
 
   eye: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-  }
-
+  },
 });
 
 export default styles;

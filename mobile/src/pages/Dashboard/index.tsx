@@ -15,7 +15,7 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import Evilcons from 'react-native-vector-icons/EvilIcons';
 
 import GetLocation from 'react-native-get-location';
-import {async} from 'q';
+
 
 const Dashboard = () => {
   const navigation = useNavigation();
@@ -30,7 +30,7 @@ const Dashboard = () => {
         timeout: 15000,
       })
         .then(location => {
-          console.warn(location);
+          // console.warn(location);
           setLatitude(location.latitude);
           setLongitude(location.longitude);
         })

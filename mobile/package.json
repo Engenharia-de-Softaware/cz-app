@@ -20,7 +20,8 @@
     "expo-permissions": "~10.0.0",
     "global": "^4.4.0",
     "react": "17.0.1",
-    "react-native": "0.64.0",
+    "react-hook-form": "^7.8.6",
+    "react-native": "0.64.2",
     "react-native-camera": "^3.43.5",
     "react-native-gesture-handler": "^1.10.3",
     "react-native-get-location": "^2.1.0",
@@ -33,7 +34,8 @@
     "react-native-svg": "^12.1.0",
     "react-native-svg-transformer": "^0.14.3",
     "react-native-vector-icons": "^8.1.0",
-    "styled-components": "5.2.0"
+    "styled-components": "5.2.0",
+    "yup": "^0.32.9"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
@@ -65,5 +67,8 @@
       "json",
       "node"
     ]
+  },
+  "rnpm": {
+    "assets": ["assets/fonts/"]
   }
 }

@@ -11,10 +11,13 @@ const Scanner = () => {
   const [camera, setCamera] = useState<RNCamera>();
 
   const barcodeRecognized = ({data}: BarCodeReadEvent) => {
-    console.warn(data);
+    // console.warn(data);
 
     const [latitude, longitude] = data.split(',');
-    console.warn({latitude, longitude});
+    // console.warn({latitude, longitude});
+    
+    navigation.navigate('Confirmation');
+    
   }
 
   return (
