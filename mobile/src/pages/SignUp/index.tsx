@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import styles from './styles';
 import {useState} from 'react';
 import {
@@ -14,8 +14,10 @@ import {
 import SignUpImage from '../../assets/images/logo.svg';
 import Entypo from 'react-native-vector-icons/Entypo';
 import {useNavigation} from '@react-navigation/native';
+import {useAuth} from '../../hooks/auth';
 
 const SignUp = () => {
+  const {signUp} = useAuth();
   const navigation = useNavigation();
 
   const [email, setEmail] = useState(String);
@@ -33,7 +35,7 @@ const SignUp = () => {
   const [inputTextFour, setInputTextFour] = useState<TextInput | null>();
   const [inputTextFive, setInputTextFive] = useState<TextInput | null>();
 
-  const handleSignUp = () => {
+  const handleSignUp = useCallback(async () => {
     if (
       !name.trim() ||
       !email.trim() ||
@@ -45,15 +47,24 @@ const SignUp = () => {
       return;
     }
 
-    if (password != password2) 
-    {
-      Alert.alert('As senhas digitadas não são iguais')
+    if (password != password2) {
+      Alert.alert('As senhas digitadas não são iguais');
       return;
     }
+    try {
+      await signUp({name, email, password, cpf});
+      setName('');
+      setEmail('');
+      setPassword('');
+      setPassword2('');
+      setCpf('');
+      
+      navigation.navigate('SignIn');
+    } catch (err) {
+      console.log(err);
+    }
+  }, [name, email, password, password2, cpf]);
 
-    
-    Alert.alert('Success');
-  };
 
   return (
     <SafeAreaView style={styles.background}>
@@ -73,48 +84,56 @@ const SignUp = () => {
         <SignUpImage style={styles.singupImage} />
         <View style={styles.singUpInputContainer}>
           <TextInput
-            ref={(input) => {setInputTextOne(input)}}
+            ref={input => {
+              setInputTextOne(input);
+            }}
             style={styles.inputContainer}
             value={name}
             placeholder="Digite seu nome"
             onChangeText={setName}
-            keyboardType='default'
-            returnKeyType='next'
+            keyboardType="default"
+            returnKeyType="next"
             onSubmitEditing={() => inputTextTwo?.focus()}
           />
 
           <TextInput
-            ref={(input) => {setInputTextTwo(input)}}
+            ref={input => {
+              setInputTextTwo(input);
+            }}
             style={styles.inputContainer}
             value={email}
             placeholder="Digite seu email"
             onChangeText={setEmail}
-            keyboardType='email-address'
-            returnKeyType='next'
+            keyboardType="email-address"
+            returnKeyType="next"
             onSubmitEditing={() => inputTextThree?.focus()}
           />
 
           <TextInput
-            ref={(input) => {setInputTextThree(input)}}
+            ref={input => {
+              setInputTextThree(input);
+            }}
             style={styles.inputContainer}
             value={cpf}
             placeholder="Digite seu CPF"
             onChangeText={setCpf}
-            keyboardType='number-pad'
-            returnKeyType='next'
+            keyboardType="number-pad"
+            returnKeyType="next"
             onSubmitEditing={() => inputTextFour?.focus()}
           />
 
           <View>
             <TextInput
-              ref={(input) => {setInputTextFour(input)}}
+              ref={input => {
+                setInputTextFour(input);
+              }}
               style={styles.inputContainer}
               value={password}
               placeholder="Digite sua senha"
               onChangeText={setPassword}
               secureTextEntry={eyeState1}
-              keyboardType='default'
-              returnKeyType='next'
+              keyboardType="default"
+              returnKeyType="next"
               onSubmitEditing={() => inputTextFive?.focus()}
             />
 
@@ -131,14 +150,16 @@ const SignUp = () => {
 
           <View>
             <TextInput
-              ref={(input) => {setInputTextFive(input)}}
+              ref={input => {
+                setInputTextFive(input);
+              }}
               style={styles.inputContainer}
               value={password2}
               placeholder="Digite novamente sua senha"
               onChangeText={setPassword2}
               secureTextEntry={eyeState2}
-              keyboardType='default'
-              returnKeyType='go'
+              keyboardType="default"
+              returnKeyType="go"
               onSubmitEditing={handleSignUp}
             />
 
@@ -156,7 +177,7 @@ const SignUp = () => {
 
         <TouchableOpacity onPress={handleSignUp}>
           <View style={styles.buttonRegisterContainer}>
-            <Text style={{color: '#fff', fontFamily: 'Roboto',}}>Cadastrar</Text>
+            <Text style={{color: '#fff', fontFamily: 'Roboto'}}>Cadastrar</Text>
           </View>
         </TouchableOpacity>
       </KeyboardAvoidingView>

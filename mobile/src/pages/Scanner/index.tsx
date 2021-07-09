@@ -5,41 +5,57 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import Mask from '../../components/Mask';
 import styles from './styles';
 import {useNavigation} from '@react-navigation/native';
+import api from '../../services/api';
+import {useAuth} from '../../hooks/auth';
 
 const Scanner = () => {
+  const {user} = useAuth();
   const navigation = useNavigation();
   const [camera, setCamera] = useState<RNCamera>();
+  const [isReading, setIsReading] = useState(false);
 
-  const barcodeRecognized = ({data}: BarCodeReadEvent) => {
-    // console.warn(data);
+  const barcodeRecognized = async ({data}: BarCodeReadEvent) => {
+    try {
+      if (isReading) {
+        return;
+      }
 
-    const [latitude, longitude] = data.split(',');
-    // console.warn({latitude, longitude});
-    
-    navigation.navigate('Confirmation');
-    
-  }
+      console.log(user);
+
+      setIsReading(true);
+      const [latitude, longitude] = data.split(',');
+      await api.post(`checkin`, {
+        user_id: user.id,
+        latitude: latitude,
+        longitude: longitude,
+      });
+
+      navigation.navigate('Confirmation');
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <SafeAreaView style={styles.container}>
-      <RNCamera 
-        ref= {(camera: RNCamera) => {setCamera(camera)}}
+      <RNCamera
+        ref={(camera: RNCamera) => {
+          setCamera(camera);
+        }}
         style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}
-        onBarCodeRead={ barcodeRecognized }
-      >
+        onBarCodeRead={barcodeRecognized}>
         <Mask />
-        
-        <TouchableWithoutFeedback 
+
+        <TouchableWithoutFeedback
           onPress={() => {
-            navigation.navigate('Dashboard'); 
+            navigation.navigate('Dashboard');
           }}>
           <View style={styles.backButton}>
-            <AntDesign name="left" size={16} color="#fff"/>
+            <AntDesign name="left" size={16} color="#fff" />
           </View>
         </TouchableWithoutFeedback>
 
         <Text style={styles.text}>Escaneando ...</Text>
-
       </RNCamera>
     </SafeAreaView>
   );

@@ -6,7 +6,7 @@ import {
   Modal,
   View,
 } from 'react-native';
-import MapView from 'react-native-maps';
+import MapView, {Marker} from 'react-native-maps';
 import {PROVIDER_GOOGLE} from 'react-native-maps';
 import styles from './styles';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -15,13 +15,70 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import Evilcons from 'react-native-vector-icons/EvilIcons';
 
 import GetLocation from 'react-native-get-location';
+import api from '../../services/api';
 
+import marker_atention from '../../assets/images/marker_atention.png';
+import marker_danger from '../../assets/images/marker_danger.png';
+
+interface MarkerProps {
+  latitude: string;
+  longitude: string;
+  quantidade: number;
+}
+
+// {
+//   "-1.87648,15.7866": 50,
+//   "-23.9990,17.9996": 78,
+//   "-16.65785,19.00978": 102,
+// }
 
 const Dashboard = () => {
+  // const {} = useAuth();
   const navigation = useNavigation();
   const [visible, setVisible] = useState(false);
   const [latitude, setLatitude] = useState(Number);
   const [longitude, setLongitude] = useState(Number);
+  const [markers, setMarkers] = useState<MarkerProps[]>();
+
+  const renderMakers = () => {
+    console.log(markers);
+    return markers?.map((marker: MarkerProps, count) => (
+      <Marker
+        key={count}
+        coordinate={{
+          latitude: Number(marker.latitude),
+          longitude: Number(marker.longitude),
+        }}
+        image={marker.quantidade > 1 ? marker_danger : marker_atention}
+      />
+    ));
+  };
+
+  //   {establishment.map(stablishment => (
+  //     <Marker
+  //         title={stablishment.name}
+  //         description={String(stablishment.current_stocking)}
+  //         key={stablishment.name}
+  //         onCalloutPress={() => { ShowMarkerModal({ ...stablishment }) }}
+  //         coordinate={{
+  //             latitude: Number(stablishment.latitude),
+  //             longitude: Number(stablishment.longitude),
+  //         }}
+  //         image={marker_pin}
+  //     />
+  // ))}
+
+  useEffect(() => {
+    const getMarkers = async () => {
+      console.log('entrando aqui');
+      const response = await api.get('getmarkers');
+      const {data} = response;
+      console.log(data);
+      setMarkers(data);
+    };
+
+    getMarkers();
+  }, []);
 
   useEffect(() => {
     const getLocation = () => {
@@ -52,8 +109,9 @@ const Dashboard = () => {
           latitudeDelta: 0.1,
           longitudeDelta: 0.1,
         }}
-        style={styles.map}
-      />
+        style={styles.map}>
+        {renderMakers()}
+      </MapView>
 
       <TouchableWithoutFeedback
         onPress={() => {

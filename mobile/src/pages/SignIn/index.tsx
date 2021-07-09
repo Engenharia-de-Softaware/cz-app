@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import {
   SafeAreaView,
   Text,
@@ -15,8 +15,10 @@ import LoginImage from '../../assets/images/login_image.svg';
 import {useState} from 'react';
 
 import {useNavigation} from '@react-navigation/native';
+import {useAuth} from '../../hooks/auth';
 
 const SignIn = () => {
+  const {signIn, user} = useAuth();
   const navigation = useNavigation();
 
   const [email, setEmail] = useState(String);
@@ -26,14 +28,22 @@ const SignIn = () => {
   const [inputTextOne, setInputTextOne] = useState<TextInput | null>();
   const [inputTextTwo, setInputTextTwo] = useState<TextInput | null>();
 
-  const handleSignIn = () => {
-    // if (email == '' || password == '') {
-    //   setMessage('Insira todos os dados corretamente.');
-    //   return;
-    // }
+  const handleSignIn = useCallback( async () => {
+    if (email == '' || password == '') {
+      setMessage('Insira todos os dados corretamente.');
+      return;
+    }
 
-    navigation.navigate('Dashboard');
-  };
+    try {
+      await signIn({email, password});
+      console.log(user);
+
+      navigation.navigate('Dashboard');
+    } catch(err) {
+      console.log(err);
+    }
+    
+  }, [email, password, signIn, user]);
 
   return (
     <SafeAreaView style={styles.background}>

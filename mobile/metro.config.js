@@ -9,11 +9,12 @@ module.exports = (async () => {
 	} = await getDefaultConfig(); 
 
 	return {
-		transformer: {      
-			babelTransformerPath: require.resolve("react-native-svg-transformer")    
-		},    
-		resolver: {
-			assetExts: assetExts.filter(ext => ext !== "svg"),
-			sourceExts: [...sourceExts, "svg"]    
-		}};
+    transformer: {
+      babelTransformerPath: require.resolve('react-native-svg-transformer'),
+    },
+    resolver: {
+      assetExts: assetExts.filter(ext => ext !== 'svg'),
+      sourceExts: [...sourceExts, 'svg'],
+    },
+  };
 })();
