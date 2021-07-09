@@ -2,15 +2,18 @@ import { LinearGradient } from 'react-native-linear-gradient';
 import React from 'react';
 import { Dimensions, StyleSheet } from 'react-native';
 
+const {width, height} = Dimensions.get('window');
+
 const styles = StyleSheet.create({
   background: {
     flex: 1,
-    height: Dimensions.get('window').height,
+    height: height,
     backgroundColor: '#fff',
   },
 
   linearGradient: {
-    height: Dimensions.get('window').height * 0.75,
+    width: width,
+    height: height * 0.75,
 
     display: 'flex',
     alignItems: 'center',
@@ -24,7 +27,7 @@ const styles = StyleSheet.create({
 
   textTitle: {
     color: '#fff',
-    width: Dimensions.get('window').width * 0.8,
+    width: width * 0.8,
 
     display: 'flex',
     alignItems: 'center',
@@ -38,7 +41,7 @@ const styles = StyleSheet.create({
   buttonsContainer: {
     marginTop: 20,
 
-    width: Dimensions.get('window').width,
+    width: width,
     paddingLeft: 40,
     paddingRight: 40,
 
@@ -56,8 +59,8 @@ const styles = StyleSheet.create({
 
   buttonLogin: {
     marginTop: 25,
-    marginLeft: Dimensions.get('window').width * 0.1,
-    width: Dimensions.get('window').width * 0.8,
+    marginLeft: width * 0.1,
+    width: width * 0.8,
     height: 40,
     backgroundColor: '#DB3828',
     borderRadius: 25,
@@ -65,14 +68,18 @@ const styles = StyleSheet.create({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-
-    
   },
 
   buttonLoginText: {
     color: '#fff',
     fontFamily: 'Roboto',
     fontSize: 16,
+  },
+
+  message: {
+    color: '#ff0',
+    fontFamily: 'Roboto',
+    marginTop: 8,
   },
 });
 

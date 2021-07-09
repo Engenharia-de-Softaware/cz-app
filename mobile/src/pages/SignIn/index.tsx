@@ -5,6 +5,7 @@ import {
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
   View,
+  TextInput,
 } from 'react-native';
 import styles from './styles';
 import LinearGradient from 'react-native-linear-gradient';
@@ -22,42 +23,56 @@ const SignIn = () => {
   const [password, setPassword] = useState(String);
   const [message, setMessage] = useState(String);
 
+  const [inputTextOne, setInputTextOne] = useState<TextInput | null>();
+  const [inputTextTwo, setInputTextTwo] = useState<TextInput | null>();
+
   const handleSignIn = () => {
-    if (email == "" || password == "")
-    {
-      setMessage('Insira todos os dados corretamente.')
-      return;
-    }
-  }
+    // if (email == '' || password == '') {
+    //   setMessage('Insira todos os dados corretamente.');
+    //   return;
+    // }
+
+    navigation.navigate('Dashboard');
+  };
 
   return (
     <SafeAreaView style={styles.background}>
-      <LinearGradient
-        colors={['#FEBDB1', '#FF5555']}
-        start={{x: 0, y: 0}}
-        end={{x: 0, y: 1}}
-        style={styles.linearGradient}>
-        <LoginImage />
+      <KeyboardAvoidingView style={styles.linearGradient} behavior="position">
+        <LinearGradient
+          colors={['#FEBDB1', '#FF5555']}
+          start={{x: 0, y: 0}}
+          end={{x: 0, y: 1}}
+          style={styles.linearGradient}>
+          <LoginImage />
 
-        <KeyboardAvoidingView style={{flex: 1}} behavior='position'>
           <View style={styles.titleContainer}>
             <Text style={styles.textTitle}>COVID ZONE</Text>
           </View>
 
           <Input
+            textRef={setInputTextOne}
             change={setEmail}
             placeholder="Digite seu email"
             value={email}
+            key='next'
+            type="email-address"
+            onSubmitEditing={() => inputTextTwo?.focus()}
           />
 
           <Input
+            textRef={setInputTextTwo}
             placeholder="Digite sua senha"
             value={password}
             change={setPassword}
             isPassword
+            key='go'
+            type="default"
+            onSubmitEditing={handleSignIn}
           />
-        </KeyboardAvoidingView>
-      </LinearGradient>
+
+          {message != '' && <Text style={styles.message}>{message}</Text>}
+        </LinearGradient>
+      </KeyboardAvoidingView>
 
       <View style={styles.buttonsContainer}>
         <TouchableWithoutFeedback
@@ -72,10 +87,7 @@ const SignIn = () => {
         </TouchableWithoutFeedback>
       </View>
 
-      <TouchableWithoutFeedback
-        onPress={() => {
-          navigation.navigate('Dashboard');
-        }}>
+      <TouchableWithoutFeedback onPress={handleSignIn}>
         <View style={styles.buttonLogin}>
           <Text style={styles.buttonLoginText}>Login</Text>
         </View>
