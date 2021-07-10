@@ -1,5 +1,13 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  KeyboardAvoidingView,
+  KeyboardTypeOptions,
+  ReturnKeyTypeOptions,
+} from 'react-native';
 import styles from './styles';
 import Entypo from 'react-native-vector-icons/Entypo';
 
@@ -8,25 +16,42 @@ interface InputProps {
   value: string;
   change: (event: string) => void;
   isPassword?: boolean;
+  key: ReturnKeyTypeOptions;
+  type: KeyboardTypeOptions;
+  textRef: (input: TextInput | null) => void;
+  onSubmitEditing: () => void;
 }
 
-const Input = (props: InputProps) => {
+const Input = ({
+  placeholder,
+  value,
+  change,
+  isPassword = false,
+  key,
+  type,
+  textRef,
+  onSubmitEditing,
+}: InputProps) => {
   const [eyeState, setEyeState] = useState(true);
 
   return (
     <KeyboardAvoidingView behavior="padding" enabled>
       <View style={styles.inputContainer}>
         <TextInput
+          ref={textRef}
           autoCapitalize="none"
           style={
-            props.isPassword ? styles.inputStylePassword : styles.inputStyle
+            isPassword ? styles.inputStylePassword : styles.inputStyle
           }
-          secureTextEntry={(props.isPassword as boolean) && eyeState}
-          placeholder={props.placeholder}
-          defaultValue={props.value}
-          onChangeText={props.change}
+          secureTextEntry={(isPassword) && eyeState}
+          placeholder={placeholder}
+          defaultValue={value}
+          returnKeyType={key}
+          onChangeText={change}
+          keyboardType={type}
+          onSubmitEditing={onSubmitEditing}
         />
-        {props.isPassword && (
+        {isPassword && (
           <TouchableOpacity
             style={styles.eye}
             onPress={() => setEyeState(!eyeState)}>

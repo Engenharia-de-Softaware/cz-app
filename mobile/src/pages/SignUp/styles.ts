@@ -1,11 +1,12 @@
 import React from 'react';
 import { Dimensions, StyleSheet } from 'react-native';
 
+const {width, height} = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   background: {
     flex: 1,
-    height: Dimensions.get('window').height,
+    height:  height,
     backgroundColor: '#fff',
   },
 
@@ -39,13 +40,15 @@ const styles = StyleSheet.create({
 
   singUpInputContainer: {
     alignItems: 'center',
+    fontFamily: 'Roboto',
     marginTop: 38,
   },
 
   buttonRegisterContainer: {
-    marginTop: 30,
-    marginLeft: Dimensions.get('window').width * 0.1,
-    width: Dimensions.get('window').width * 0.8,
+    marginTop: 40,
+    // marginBottom: 12,
+    marginLeft:  width * 0.1,
+    width:  width * 0.8,
     height: 40,
     backgroundColor: '#282C37',
     borderRadius: 25,
@@ -57,7 +60,7 @@ const styles = StyleSheet.create({
 
   buttonBackContainer: {
     marginTop: 25,
-    marginLeft: Dimensions.get('window').width * 0.05,
+    marginLeft:  width * 0.05,
     width: 40,
     height: 40,
     backgroundColor: '#DB3828',
@@ -76,7 +79,7 @@ const styles = StyleSheet.create({
   },
 
   inputContainer: {
-    width: Dimensions.get('window').width * 0.8,
+    width:  width * 0.8,
     height: 40,
     backgroundColor: '#fff',
 
@@ -100,7 +103,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     position: 'absolute',
-    marginLeft: Dimensions.get('window').width * 0.7,
+    marginLeft:  width * 0.7,
     marginTop: 24,
   },
 });
